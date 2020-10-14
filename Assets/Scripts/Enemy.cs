@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     CharacterController character;
     LaserHitReceiver laserReceiver;
-    public float hp;
+    public int hp;
     public float defaultSpeed;
     private float speed;
 
@@ -23,11 +23,19 @@ public class Enemy : MonoBehaviour
         speed = defaultSpeed;
     }
 
+    void UpdateHealth(int damage)
+    {
+        hp -= damage;
+    }
+
+
     // Update is called once per frame
     void Update()
     {
+        if(delayTimer > 0)
+            delayTimer -= Time.deltaTime;
         MoveToPlayer();
-        if (hp < 0)
+        if (hp <= 0)
             Destroy(gameObject);
     }
 
@@ -37,8 +45,14 @@ public class Enemy : MonoBehaviour
         character.Move(dirVec * speed * Time.deltaTime);
     }
 
+    public float delay = 0.5f;
+    float delayTimer;
     public void Damage(PointerEventArgs e)
     {
-        hp -= Time.deltaTime;
+        if(delayTimer <= 0)
+        {
+            UpdateHealth(1);
+            delayTimer = delay;
+        }
     }
 }

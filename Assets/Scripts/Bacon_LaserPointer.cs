@@ -106,68 +106,69 @@ public class Bacon_LaserPointer : MonoBehaviour
             this.transform.GetChild(0).gameObject.SetActive(true);
         }
 
-        float dist = 100f;
-
-        Ray raycast = new Ray(transform.position, transform.forward);
-        bool bHit = Physics.Raycast(raycast, out RaycastHit hit);
-        /*
-        if (previousContact && previousContact != hit.transform)
-        {
-            PointerEventArgs args = new PointerEventArgs();
-            args.fromInputSource = pose.inputSource;
-            args.distance = 0f;
-            args.flags = 0;
-            args.target = previousContact;
-            OnPointerOut(args);
-            previousContact = null;
-        }
-        if (bHit && previousContact != hit.transform)
-        {
-            PointerEventArgs argsIn = new PointerEventArgs();
-            argsIn.fromInputSource = pose.inputSource;
-            argsIn.distance = hit.distance;
-            argsIn.flags = 0;
-            argsIn.target = hit.transform;
-            OnPointerIn(argsIn);
-            previousContact = hit.transform;
-        }
-        if (bHit)
-        {
-            PointerEventArgs argsIn = new PointerEventArgs
-            {
-                fromInputSource = pose.inputSource,
-                distance = hit.distance,
-                flags = 0,
-                target = hit.transform
-            };
-            OnPointerKeep(argsIn);
-            previousContact = hit.transform;
-        }*/
-        if (!bHit)
-        {
-            previousContact = null;
-        }
-        if (bHit && hit.distance < 100f)
-        {
-            dist = hit.distance;
-        }
-
-        if (bHit && interactWithUI.GetStateUp(pose.inputSource))
-        {
-            PointerEventArgs argsClick = new PointerEventArgs();
-            argsClick.fromInputSource = pose.inputSource;
-            argsClick.distance = hit.distance;
-            argsClick.flags = 0;
-            argsClick.target = hit.transform;
-            OnPointerClick(argsClick);
-        }
-
-
         if (interactWithUI != null && interactWithUI.GetState(pose.inputSource))
         {
+            float dist = 100f;
+
+            Ray raycast = new Ray(transform.position, transform.forward);
+            bool bHit = Physics.Raycast(raycast, out RaycastHit hit);
+            /*
+            if (previousContact && previousContact != hit.transform)
+            {
+                PointerEventArgs args = new PointerEventArgs();
+                args.fromInputSource = pose.inputSource;
+                args.distance = 0f;
+                args.flags = 0;
+                args.target = previousContact;
+                OnPointerOut(args);
+                previousContact = null;
+            }
+            if (bHit && previousContact != hit.transform)
+            {
+                PointerEventArgs argsIn = new PointerEventArgs();
+                argsIn.fromInputSource = pose.inputSource;
+                argsIn.distance = hit.distance;
+                argsIn.flags = 0;
+                argsIn.target = hit.transform;
+                OnPointerIn(argsIn);
+                previousContact = hit.transform;
+            }
             if (bHit)
             {
-                var receiver = hit.transform.GetComponent<LaserHitReceiver>();
+                PointerEventArgs argsIn = new PointerEventArgs
+                {
+                    fromInputSource = pose.inputSource,
+                    distance = hit.distance,
+                    flags = 0,
+                    target = hit.transform
+                };
+                OnPointerKeep(argsIn);
+                previousContact = hit.transform;
+            }*/
+            if (!bHit)
+            {
+                previousContact = null;
+            }
+            if (bHit && hit.distance < 100f)
+            {
+                dist = hit.distance;
+            }
+
+            /*if (bHit && interactWithUI.GetStateUp(pose.inputSource))
+            {
+                PointerEventArgs argsClick = new PointerEventArgs();
+                argsClick.fromInputSource = pose.inputSource;
+                argsClick.distance = hit.distance;
+                argsClick.flags = 0;
+                argsClick.target = hit.transform;
+                OnPointerClick(argsClick);
+            }*/
+
+            holder.SetActive(true);
+
+            if (bHit)
+            {
+                var receiver = hit.transform.GetComponentInParent<LaserHitReceiver>();
                 if (receiver != null)
                 {
                     PointerEventArgs argsIn = new PointerEventArgs
@@ -177,10 +178,13 @@ public class Bacon_LaserPointer : MonoBehaviour
                         flags = 0,
                         target = hit.transform
                     };
-                    hit.transform.GetComponent<LaserHitReceiver>().OnLaserKeep(this, argsIn);
+                    receiver.OnLaserKeep(this, argsIn);
                 }
             }
+            pointer.transform.localPosition = new Vector3(0f, 0f, dist / 2f);
         }
+        else
+            holder.SetActive(false);
 
 
         /*if (interactWithUI != null && interactWithUI.GetState(pose.inputSource))
@@ -193,7 +197,6 @@ public class Bacon_LaserPointer : MonoBehaviour
             pointer.transform.localScale = new Vector3(thickness, thickness, dist);
             pointer.GetComponent<MeshRenderer>().material.color = color;
         }*/
-        pointer.transform.localPosition = new Vector3(0f, 0f, dist / 2f);
     }
 }
 
