@@ -41,11 +41,13 @@ public class Bacon_LaserPointer : MonoBehaviour
         if (interactWithUI == null)
             Debug.LogError("No ui interaction action has been set on this component.", this);
 
-
-        holder = new GameObject();
-        holder.transform.parent = this.transform;
-        holder.transform.localPosition = Vector3.zero;
-        holder.transform.localRotation = Quaternion.identity;
+        if(holder == null)
+        {
+            holder = new GameObject();
+            holder.transform.parent = this.transform;
+            holder.transform.localPosition = Vector3.zero;
+            holder.transform.localRotation = Quaternion.identity;
+        }
 
         pointer = GameObject.CreatePrimitive(PrimitiveType.Cube);
         pointer.transform.parent = holder.transform;
@@ -107,9 +109,8 @@ public class Bacon_LaserPointer : MonoBehaviour
         float dist = 100f;
 
         Ray raycast = new Ray(transform.position, transform.forward);
-        RaycastHit hit;
-        bool bHit = Physics.Raycast(raycast, out hit);
-
+        bool bHit = Physics.Raycast(raycast, out RaycastHit hit);
+        /*
         if (previousContact && previousContact != hit.transform)
         {
             PointerEventArgs args = new PointerEventArgs();
@@ -141,7 +142,7 @@ public class Bacon_LaserPointer : MonoBehaviour
             };
             OnPointerKeep(argsIn);
             previousContact = hit.transform;
-        }
+        }*/
         if (!bHit)
         {
             previousContact = null;
@@ -161,23 +162,28 @@ public class Bacon_LaserPointer : MonoBehaviour
             OnPointerClick(argsClick);
         }
 
-        if (bHit)
+
+        if (interactWithUI != null && interactWithUI.GetState(pose.inputSource))
         {
-            var receiver = hit.transform.GetComponent<LaserHitReceiver>();
-            if (receiver != null)
+            if (bHit)
             {
-                PointerEventArgs argsIn = new PointerEventArgs
+                var receiver = hit.transform.GetComponent<LaserHitReceiver>();
+                if (receiver != null)
                 {
-                    fromInputSource = pose.inputSource,
-                    distance = hit.distance,
-                    flags = 0,
-                    target = hit.transform
-                };
-                hit.transform.GetComponent<LaserHitReceiver>().OnLaserKeep(this, argsIn);
+                    PointerEventArgs argsIn = new PointerEventArgs
+                    {
+                        fromInputSource = pose.inputSource,
+                        distance = hit.distance,
+                        flags = 0,
+                        target = hit.transform
+                    };
+                    hit.transform.GetComponent<LaserHitReceiver>().OnLaserKeep(this, argsIn);
+                }
             }
         }
 
-        if (interactWithUI != null && interactWithUI.GetState(pose.inputSource))
+
+        /*if (interactWithUI != null && interactWithUI.GetState(pose.inputSource))
         {
             pointer.transform.localScale = new Vector3(thickness * 5f, thickness * 5f, dist);
             pointer.GetComponent<MeshRenderer>().material.color = clickColor;
@@ -186,7 +192,7 @@ public class Bacon_LaserPointer : MonoBehaviour
         {
             pointer.transform.localScale = new Vector3(thickness, thickness, dist);
             pointer.GetComponent<MeshRenderer>().material.color = color;
-        }
+        }*/
         pointer.transform.localPosition = new Vector3(0f, 0f, dist / 2f);
     }
 }
