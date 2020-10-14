@@ -12,9 +12,10 @@ public class WaveSpawner : MonoBehaviour
 
     void SpawnMob(int enemyNum)
     {
-
         float angle = Random.Range(0, 2 * Mathf.PI);
-        Instantiate(enemyObj[enemyNum], spawndist * new Vector3(-Mathf.Cos(angle), 0, Mathf.Sin(angle)),Quaternion.Euler(new Vector3(0, angle*180/Mathf.PI, 0)), null);
+        Instantiate(enemyObj[enemyNum],
+            spawndist * new Vector3(-Mathf.Sin(angle), 0, -Mathf.Cos(angle)), 
+            Quaternion.Euler(new Vector3(0, angle*180/Mathf.PI, 0)), null);
 
         mobNum += 1;
         switch (mobNum)

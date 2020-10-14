@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class Enemy : MonoBehaviour
     LaserHitReceiver laserReceiver;
     public int hp;
     public float defaultSpeed;
+    public float attackRange;
     private float speed;
 
     // Start is called before the first frame update
@@ -34,9 +36,21 @@ public class Enemy : MonoBehaviour
     {
         if(delayTimer > 0)
             delayTimer -= Time.deltaTime;
-        MoveToPlayer();
+
         if (hp <= 0)
             Destroy(gameObject);
+
+        if (Vector3.Distance(PlayerData.inst.transform.position, transform.position) < attackRange)
+            Attack();
+        else
+            MoveToPlayer();
+    }
+
+    public event Action OnAttack;
+
+    private void Attack()
+    {
+        OnAttack?.Invoke();
     }
 
     private void MoveToPlayer()

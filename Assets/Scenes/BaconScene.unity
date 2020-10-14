@@ -499,7 +499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyObj:
-  - {fileID: 5917544631181290566, guid: 04a7c4e13999b6043aaf87321c4e53f1, type: 3}
+  - {fileID: 5697545915208396809, guid: 5d247f6d06e71314a9aa5116a5573b19, type: 3}
   spawnperiod: 3
   spawndist: 40
 --- !u!4 &792595652
