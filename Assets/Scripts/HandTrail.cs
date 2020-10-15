@@ -6,6 +6,7 @@ using Valve.VR;
 public class HandTrail : MonoBehaviour
 {
     public GameObject tracer;
+    public float interval;
     public SteamVR_Behaviour_Pose pose;
     public SteamVR_Action_Boolean interactWithUI = SteamVR_Input.GetBooleanAction("InteractUI");
     float time = 0;
@@ -28,11 +29,13 @@ public class HandTrail : MonoBehaviour
         if (interactWithUI != null && interactWithUI.GetState(pose.inputSource))
         {
             time += Time.deltaTime;
-            if (time > 1)
+            if (time > interval)
             {
-                Instantiate(tracer);
+                time -= interval;
+                Instantiate(tracer, transform.position, Quaternion.identity, null);
             }
         }
         else time = 0;
+
     }
 }

@@ -62,9 +62,11 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(1.15f);
         while (true)
         {
+            
             OnAttack?.Invoke();
             player.TakeDamage(5);
             yield return new WaitForSeconds(1.5f);
+
         }
     }
 

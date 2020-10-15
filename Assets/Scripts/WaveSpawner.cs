@@ -44,7 +44,7 @@ public class WaveSpawner : MonoBehaviour
         if (peacetime > spawnperiod)
         {
             peacetime -= spawnperiod;
-            SpawnMob(0);
+            SpawnMob(0); Destroy(this.gameObject);
         }
 
 
