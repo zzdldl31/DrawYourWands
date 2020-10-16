@@ -59,7 +59,7 @@ public class Enemy : MonoBehaviour
     IEnumerator Attack()
     {
         OnAttack?.Invoke();
-        yield return new WaitForSeconds(1.15f);
+        yield return new WaitForSeconds(0.95f);
         while (true)
         {
             

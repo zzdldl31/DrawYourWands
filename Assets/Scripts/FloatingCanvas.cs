@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DYW;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,9 +8,9 @@ public class FloatingCanvas : MonoBehaviour
 {
     public Transform cam;
     public Healthbar healthbar;
-    public Text scoreboard;
+    public Text scoreboard, textCenter;
 
-    int killCount = 0;
+    public int killCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,11 @@ public class FloatingCanvas : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         healthbar.TakeDamage(dmg);
+        if(healthbar.health <= 0)
+        {
+            healthbar.healthPerSecond = 0;
+            GameManager.Instance.ChangeGameState(0);
+        }
     }
 
     public void AddKillCount()
@@ -36,5 +42,15 @@ public class FloatingCanvas : MonoBehaviour
     }
 
 
+    public void SetTextCenter(string str)
+    {
+        textCenter.text = str;
+    }
+    public void MoveScoreBoard(int ypos)
+    {
+        Vector3 curpos = scoreboard.transform.localPosition;
+        curpos.y = ypos;
+        scoreboard.transform.localPosition = curpos;
+    }
 
 }
