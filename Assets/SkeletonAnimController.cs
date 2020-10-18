@@ -10,12 +10,8 @@ public class SkeletonAnimController : MonoBehaviour
     {
         var enemy = GetComponent<Enemy>();
         var anim = GetComponent<Animator>();
-        enemy.OnAttack += () => anim.SetTrigger("StartAttack");
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        enemy.OnAttack += () => anim.SetTrigger("StartAttack");
+        enemy.OnDie += () => anim.SetTrigger("Die");
     }
 }

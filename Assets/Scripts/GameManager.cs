@@ -10,6 +10,7 @@ namespace DYW
 
         public GameObject Player => GameObject.FindGameObjectWithTag("Player");
         public WaveSpawner spawner;
+        public PlayerData playerData;
         public FloatingCanvas player;
         public GameObject gameStartButton;
         public int gameState = 0; // 0 = menu, 1 = gameplay 
@@ -77,7 +78,7 @@ namespace DYW
             player.healthbar.GainHealth(player.healthbar.maximumHealth);
             player.SetTextCenter("");
             player.MoveScoreBoard(428);
-            player.killCount = 0;
+            playerData.killCount = 0;
             player.healthbar.gameObject.SetActive(true);
         }
 

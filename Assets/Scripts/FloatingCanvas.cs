@@ -9,10 +9,15 @@ public class FloatingCanvas : MonoBehaviour
     public Transform cam;
     public Healthbar healthbar;
     public Text scoreboard, textCenter;
+    public PlayerData playerData;
 
     public int killCount = 0;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        playerData = PlayerData.inst;
+    }
+
     void Start()
     {
         //playerHP = healthbar.maximumHealth;
@@ -42,7 +47,7 @@ public class FloatingCanvas : MonoBehaviour
 
     public void AddKillCount()
     {
-        scoreboard.text = "Kills: " + (++killCount).ToString();
+        scoreboard.text = $"Kills: {++playerData.killCount}";
     }
 
 

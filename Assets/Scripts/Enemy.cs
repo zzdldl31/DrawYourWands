@@ -8,14 +8,28 @@ public class Enemy : MonoBehaviour
     CharacterController character;
     LaserHitReceiver laserReceiver;
 
-    //public int hp;
+    [SerializeField]
+    private int hp;
+    
+    public int Hp
+    {
+        get => hp;
+        set {
+            hp = value;
+            OnHpChanged?.Invoke(hp);
+        }
+    }
+
     FloatingCanvas player;
     public float defaultSpeed;
     public float attackRange;
     private float speed;
-    public Healthbar healthbar;
-
+    
     bool isAttacking = false;
+
+    public event Action OnDie;
+    public event Action OnAttack;
+    public event Action<int> OnHpChanged;
 
     // Start is called before the first frame update
     void Awake()
@@ -59,7 +73,6 @@ public class Enemy : MonoBehaviour
             MoveToPlayer();
     }
 
-    public event Action OnAttack;
     IEnumerator Attack()
     {
         OnAttack?.Invoke();
@@ -83,7 +96,7 @@ public class Enemy : MonoBehaviour
         }
         else if (moveType == MoveType.Flying)
         {
-            //var dir = (PlayerData.inst.transform.position - transform.position).normalized;
+            var dir = (PlayerData.inst.transform.position - transform.position).normalized;
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
     }
