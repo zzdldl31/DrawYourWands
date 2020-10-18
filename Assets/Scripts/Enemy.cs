@@ -17,17 +17,13 @@ public class Enemy : MonoBehaviour
         set {
             hp = value;
             OnHpChanged?.Invoke(hp);
-            if(hp <= 0)
-            {
-                Destroy(gameObject);
-                OnDie?.Invoke(gameObject);
-                OnAnyEnemyDie?.Invoke();
-            }
+            if (hp <= 0)
+                Kill();
         }
     }
 
     public float defaultSpeed;
-    public float attackRange;
+    public float attackRange = 2;
     private float speed;
 
     public float firstAttackDelay;
@@ -106,6 +102,15 @@ public class Enemy : MonoBehaviour
 
     public float delay = 0.5f;
     float delayTimer;
+
+    public void Kill()
+    {
+        if (OnDie != null)
+            OnDie?.Invoke(gameObject);
+        else Destroy(gameObject);
+        OnAnyEnemyDie?.Invoke();
+    }
+
     public void Damage(PointerEventArgs e)
     {
         if(delayTimer <= 0)
