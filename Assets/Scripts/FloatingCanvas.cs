@@ -1,6 +1,4 @@
 ﻿using DYW;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,34 +16,33 @@ public class FloatingCanvas : MonoBehaviour
         playerData = PlayerData.inst;
     }
 
-    void Start()
+    private void Start()
     {
-        //playerHP = healthbar.maximumHealth;
+        Enemy.OnAnyEnemyDie += () => AddKillCount();
+        PlayerData.inst.OnDamaged += (dmg) => OnPlayerDamaged(dmg);
+        PlayerData.inst.OnDied += () => OnPlayerDied();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         transform.position = cam.position + cam.forward * 1f;
         transform.LookAt(cam);
     }
 
-
-
-    public void TakeDamage(int dmg)
+    private void OnPlayerDamaged(int dmg)
     {
         healthbar.TakeDamage(dmg);
         GameManager.Instance.Pulse(0.01f, 150, 75);
-
-        if (healthbar.health <= 0)
-        {
-            healthbar.healthPerSecond = 0;
-            GameManager.Instance.ChangeGameState(0);
-        }
-
     }
 
-    public void AddKillCount()
+    private void OnPlayerDied()
+    {
+        healthbar.healthPerSecond = 0;
+        GameManager.Instance.ChangeGameState(0);
+    }
+
+    private void AddKillCount()
     {
         scoreboard.text = $"Kills: {++playerData.killCount}";
     }
@@ -55,6 +52,7 @@ public class FloatingCanvas : MonoBehaviour
     {
         textCenter.text = str;
     }
+
     public void MoveScoreBoard(int ypos)
     {
         Vector3 curpos = scoreboard.transform.localPosition;

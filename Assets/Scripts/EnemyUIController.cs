@@ -11,6 +11,8 @@ public class EnemyUIController : MonoBehaviour
     private void Awake()
     {
         enemy = GetComponent<Enemy>();
+        healthbar.maximumHealth = enemy.Hp;
+        healthbar.health = enemy.Hp;
         enemy.OnHpChanged += (hp) => healthbar.SetHealth(hp);
     }
 }

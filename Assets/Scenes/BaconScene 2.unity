@@ -400,6 +400,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da8dfab00cf9ed44184a959a79f7e6d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 0
+  killCount: 0
 --- !u!1 &471077001
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,5 +987,10 @@ PrefabInstance:
       propertyPath: gameState
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1850970670101069797, guid: 960c795f1b8cd7848829ae30916f3b94,
+        type: 3}
+      propertyPath: playerData
+      value: 
+      objectReference: {fileID: 233342265}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 960c795f1b8cd7848829ae30916f3b94, type: 3}

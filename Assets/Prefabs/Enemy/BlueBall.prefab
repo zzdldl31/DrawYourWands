@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 4954256566242582720}
   - component: {fileID: 7421591304776654361}
   - component: {fileID: 4699479084049274225}
+  - component: {fileID: 749891652512230316}
   - component: {fileID: 5646386348931578807}
   m_Layer: 0
   m_Name: BlueBall
@@ -159,11 +160,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd350905d4da4d5489071f908bf029cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 3
   defaultSpeed: 10
   attackRange: 1
-  healthbar: {fileID: 2788006614092525788}
+  firstAttackDelay: 0
+  secondAttackDelay: 0
+  attackPower: 50
   moveType: 1
   delay: 0.5
+--- !u!114 &749891652512230316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259417728207831367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5df8a3147e367444f9544a1a945aa30b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthbar: {fileID: 2788006614092525788}
 --- !u!114 &5646386348931578807
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -49,6 +49,16 @@ public class WaveManager : MonoBehaviour
         var go = Instantiate(enemyObj[enemyCode], transform);
         go.transform.position = pos;
         go.transform.LookAt(PlayerData.inst.transform);
+
+        mobNum += 1;
+    }
+
+    public void CleanUp()
+    {
+        foreach (Transform obj in transform)
+        {
+            Destroy(obj.gameObject);
+        }
     }
 
     int cycle = 1;

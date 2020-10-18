@@ -7,11 +7,12 @@ namespace DYW
 {
     public class GameManager : MonoBehaviour
     {
-
-        public GameObject Player => GameObject.FindGameObjectWithTag("Player");
+        public WaveManager waveManager;
         public WaveSpawner spawner;
+
         public PlayerData playerData;
-        public FloatingCanvas player;
+        public FloatingCanvas playerUI;
+
         public GameObject gameStartButton;
         public int gameState = 0; // 0 = menu, 1 = gameplay 
 
@@ -39,28 +40,18 @@ namespace DYW
             }
             else
             {
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            //ChangeGameState(0);
+#if !UNITY_EDITOR
+            ChangeGameState(0);
+#endif
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-
-        public void Pulse(float duration, float frequency, float amplitude)
-        {
-            hapticAction.Execute(0, duration, frequency, amplitude, SteamVR_Input_Sources.LeftHand);
-            hapticAction.Execute(0, duration, frequency, amplitude, SteamVR_Input_Sources.RightHand);
-        }
+        
 
         public void ChangeGameState(int state)
         {
@@ -75,27 +66,28 @@ namespace DYW
         {
             gameStartButton.SetActive(false);
             spawner.ResetWave();
-            player.healthbar.GainHealth(player.healthbar.maximumHealth);
-            player.SetTextCenter("");
-            player.MoveScoreBoard(428);
+            playerUI.healthbar.GainHealth(playerUI.healthbar.maximumHealth);
+            playerUI.SetTextCenter("");
+            playerUI.MoveScoreBoard(428);
             playerData.killCount = 0;
-            player.healthbar.gameObject.SetActive(true);
+            playerUI.healthbar.gameObject.SetActive(true);
         }
 
         void GameOver()
         {
             gameStartButton.SetActive(true);
-            foreach (Transform obj in spawner.transform)
-            {
-                Destroy(obj.gameObject);
-            }
-            player.SetTextCenter("Game Over");
-            player.MoveScoreBoard(-150);
-            player.healthbar.gameObject.SetActive(false);
-
+            waveManager.CleanUp();
+            playerUI.SetTextCenter("Game Over");
+            playerUI.MoveScoreBoard(-150);
+            playerUI.healthbar.gameObject.SetActive(false);
 
             Pulse(1f, 150, 100);
         }
 
+        public void Pulse(float duration, float frequency, float amplitude)
+        {
+            hapticAction.Execute(0, duration, frequency, amplitude, SteamVR_Input_Sources.LeftHand);
+            hapticAction.Execute(0, duration, frequency, amplitude, SteamVR_Input_Sources.RightHand);
+        }
     }
 }

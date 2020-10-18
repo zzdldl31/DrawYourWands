@@ -17,24 +17,34 @@ public class Enemy : MonoBehaviour
         set {
             hp = value;
             OnHpChanged?.Invoke(hp);
+            if(hp <= 0)
+            {
+                Destroy(gameObject);
+                OnDie?.Invoke(gameObject);
+                OnAnyEnemyDie?.Invoke();
+            }
         }
     }
 
-    FloatingCanvas player;
     public float defaultSpeed;
     public float attackRange;
     private float speed;
-    
+
+    public float firstAttackDelay;
+    public float secondAttackDelay;
+    public int attackPower;
+
     bool isAttacking = false;
 
-    public event Action OnDie;
+    public static event Action OnAnyEnemyDie;
+
     public event Action OnAttack;
     public event Action<int> OnHpChanged;
+    public event Action<GameObject> OnDie;
 
     // Start is called before the first frame update
     void Awake()
     {
-        player = GameObject.Find("FloatingCanvas").GetComponent<FloatingCanvas>();
         laserReceiver = GetComponent<LaserHitReceiver>();
         character = GetComponent<CharacterController>();
         laserReceiver.OnLaserKeep += (s, e) => Damage(e);
@@ -48,24 +58,17 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (healthbar.health <= healthbar.minimumHealth)
-        {
-            Destroy(gameObject);
-            player.AddKillCount();
-        }
-
         if (delayTimer > 0)
         {
             delayTimer -= Time.deltaTime;
             return;
         }
 
-
         if (Vector3.Distance(PlayerData.inst.transform.position, transform.position) < attackRange)
         {
             if (!isAttacking)
             {
-                StartCoroutine("Attack");
+                StartCoroutine(Attack());
                 isAttacking = true;
             }
         }
@@ -76,12 +79,12 @@ public class Enemy : MonoBehaviour
     IEnumerator Attack()
     {
         OnAttack?.Invoke();
-        yield return new WaitForSeconds(0.95f);
+        yield return new WaitForSeconds(firstAttackDelay);
         while (true)
         {
             OnAttack?.Invoke();
-            player.TakeDamage(5);
-            yield return new WaitForSeconds(1.5f);
+            PlayerData.inst.TakeDamage(attackPower);
+            yield return new WaitForSeconds(secondAttackDelay);
         }
     }
 
@@ -107,7 +110,7 @@ public class Enemy : MonoBehaviour
     {
         if(delayTimer <= 0)
         {
-            healthbar.TakeDamage(1);
+            Hp--;
             delayTimer = delay;
         }
     }
