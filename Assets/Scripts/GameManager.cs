@@ -10,6 +10,7 @@ namespace DYW
         public GameObject Player => GameObject.FindGameObjectWithTag("Player");
         public WaveSpawner spawner;
         public FloatingCanvas player;
+        public GameObject gameStartButton;
         public int gameState = 0; // 0 = menu, 1 = gameplay 
 
 
@@ -41,7 +42,7 @@ namespace DYW
         // Start is called before the first frame update
         void Start()
         {
-            ChangeGameState(1);
+            ChangeGameState(0);
         }
 
         // Update is called once per frame
@@ -64,6 +65,7 @@ namespace DYW
 
         void GameStart()
         {
+            gameStartButton.SetActive(false);
             player.SetTextCenter("");
             player.MoveScoreBoard(428);
             player.killCount = 0;
@@ -72,6 +74,7 @@ namespace DYW
 
         void GameOver()
         {
+            gameStartButton.SetActive(true);
             foreach (Transform obj in spawner.transform)
             {
                 Destroy(obj.gameObject);

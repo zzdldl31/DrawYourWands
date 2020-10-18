@@ -6,8 +6,9 @@ using UnityEngine;
 public class WaveSpawner : MonoBehaviour
 {
     public GameObject[] enemyObj;
-    public float spawnperiod;
+    public float spawnperiod_start;
     public float spawndist;
+    float spawnperiod;
     float peacetime = 0;
     int mobNum = 0;
     
@@ -32,17 +33,15 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
         if(GameManager.Instance.gameState == 0)
         {
+            spawnperiod = spawnperiod_start;
             peacetime = 0;
+            mobNum = 0;
             return;
         }
         peacetime += Time.deltaTime;
