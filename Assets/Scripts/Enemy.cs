@@ -72,13 +72,20 @@ public class Enemy : MonoBehaviour
         }
     }
 
-
-
+    public MoveType moveType;
 
     private void MoveToPlayer()
     {
-        var dirVec = (PlayerData.inst.transform.position - transform.position).normalized;
-        character.Move(dirVec * speed * Time.deltaTime);
+        if (moveType == MoveType.Walk)
+        {
+            var dirVec = (PlayerData.inst.transform.position - transform.position).normalized;
+            character.Move(dirVec * speed * Time.deltaTime);
+        }
+        else if (moveType == MoveType.Flying)
+        {
+            //var dir = (PlayerData.inst.transform.position - transform.position).normalized;
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        }
     }
 
     public float delay = 0.5f;
@@ -91,4 +98,16 @@ public class Enemy : MonoBehaviour
             delayTimer = delay;
         }
     }
+}
+
+public enum AttackType
+{
+    Default,
+    SelfDestruct,
+}
+
+public enum MoveType
+{
+    Walk,
+    Flying,
 }

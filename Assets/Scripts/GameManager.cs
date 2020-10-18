@@ -45,7 +45,7 @@ namespace DYW
         // Start is called before the first frame update
         void Start()
         {
-            ChangeGameState(0);
+            //ChangeGameState(0);
         }
 
         // Update is called once per frame
