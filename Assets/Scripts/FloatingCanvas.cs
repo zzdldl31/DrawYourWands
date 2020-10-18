@@ -30,12 +30,13 @@ public class FloatingCanvas : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         healthbar.TakeDamage(dmg);
-        if(healthbar.health <= 0)
+        GameManager.Instance.Pulse(0.01f, 150, 75);
+
+        if (healthbar.health <= 0)
         {
             healthbar.healthPerSecond = 0;
             GameManager.Instance.ChangeGameState(0);
         }
-        GameManager.Instance.Pulse(0.01f, 150, 75);
 
     }
 

@@ -93,7 +93,7 @@ namespace DYW
             player.healthbar.gameObject.SetActive(false);
 
 
-            GameManager.Instance.Pulse(1f, 150, 75);
+            Pulse(1f, 150, 100);
         }
 
     }
