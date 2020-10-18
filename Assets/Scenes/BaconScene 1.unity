@@ -466,6 +466,11 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 673263151}
+    - target: {fileID: 3328549040898282864, guid: d0e0f9f627173724da3872b5863b4dd2,
+        type: 3}
+      propertyPath: hapticAction.actionPath
+      value: /actions/default/out/Haptic
+      objectReference: {fileID: 0}
     - target: {fileID: 3328549040898282865, guid: d0e0f9f627173724da3872b5863b4dd2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -844,5 +849,10 @@ PrefabInstance:
       propertyPath: gameStartButton
       value: 
       objectReference: {fileID: 1291036663}
+    - target: {fileID: 1850970670101069797, guid: 960c795f1b8cd7848829ae30916f3b94,
+        type: 3}
+      propertyPath: hapticAction.actionPath
+      value: /actions/default/out/Haptic
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 960c795f1b8cd7848829ae30916f3b94, type: 3}

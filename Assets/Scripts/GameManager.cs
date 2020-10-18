@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR;
 
 namespace DYW
 {
@@ -12,6 +13,8 @@ namespace DYW
         public FloatingCanvas player;
         public GameObject gameStartButton;
         public int gameState = 0; // 0 = menu, 1 = gameplay 
+
+        public SteamVR_Action_Vibration hapticAction;
 
 
         private static GameManager instance = null;
@@ -52,7 +55,11 @@ namespace DYW
         }
 
 
-        
+        public void Pulse(float duration, float frequency, float amplitude)
+        {
+            hapticAction.Execute(0, duration, frequency, amplitude, SteamVR_Input_Sources.LeftHand);
+            hapticAction.Execute(0, duration, frequency, amplitude, SteamVR_Input_Sources.RightHand);
+        }
 
         public void ChangeGameState(int state)
         {
@@ -66,6 +73,8 @@ namespace DYW
         void GameStart()
         {
             gameStartButton.SetActive(false);
+            spawner.ResetWave();
+            player.healthbar.GainHealth(player.healthbar.maximumHealth);
             player.SetTextCenter("");
             player.MoveScoreBoard(428);
             player.killCount = 0;
@@ -82,6 +91,9 @@ namespace DYW
             player.SetTextCenter("Game Over");
             player.MoveScoreBoard(-150);
             player.healthbar.gameObject.SetActive(false);
+
+
+            GameManager.Instance.Pulse(1f, 150, 75);
         }
 
     }

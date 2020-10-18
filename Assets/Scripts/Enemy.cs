@@ -34,14 +34,18 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (delayTimer > 0)
-            delayTimer -= Time.deltaTime;
-
         if (healthbar.health <= healthbar.minimumHealth)
         {
             Destroy(gameObject);
             player.AddKillCount();
         }
+
+        if (delayTimer > 0)
+        {
+            delayTimer -= Time.deltaTime;
+            return;
+        }
+
 
         if (Vector3.Distance(PlayerData.inst.transform.position, transform.position) < attackRange)
         {
@@ -62,11 +66,9 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(0.95f);
         while (true)
         {
-            
             OnAttack?.Invoke();
             player.TakeDamage(5);
             yield return new WaitForSeconds(1.5f);
-
         }
     }
 

@@ -26,6 +26,7 @@ public class FloatingCanvas : MonoBehaviour
     }
 
 
+
     public void TakeDamage(int dmg)
     {
         healthbar.TakeDamage(dmg);
@@ -34,6 +35,8 @@ public class FloatingCanvas : MonoBehaviour
             healthbar.healthPerSecond = 0;
             GameManager.Instance.ChangeGameState(0);
         }
+        GameManager.Instance.Pulse(0.01f, 150, 75);
+
     }
 
     public void AddKillCount()

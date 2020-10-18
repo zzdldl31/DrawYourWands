@@ -33,23 +33,25 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
+    public void ResetWave()
+    {
+        spawnperiod = spawnperiod_start;
+        peacetime = 0;
+        mobNum = 0;
+    }
 
     // Update is called once per frame
     void Update()
     {
         if(GameManager.Instance.gameState == 0)
-        {
-            spawnperiod = spawnperiod_start;
-            peacetime = 0;
-            mobNum = 0;
             return;
-        }
+
         peacetime += Time.deltaTime;
 
         if (peacetime > spawnperiod)
         {
             peacetime -= spawnperiod;
-            SpawnMob(0);// Destroy(this.gameObject);
+            SpawnMob(0); //Destroy(this.gameObject);
         }
 
 
