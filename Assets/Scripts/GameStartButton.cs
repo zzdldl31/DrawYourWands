@@ -10,12 +10,10 @@ namespace Valve.VR.InteractionSystem.Sample
     {
         protected SkeletonUIOptions ui;
 
-
         protected override void OnButtonClick()
         {
             GameManager.Instance.ChangeGameState(1);
         }
-
     }
 }
 

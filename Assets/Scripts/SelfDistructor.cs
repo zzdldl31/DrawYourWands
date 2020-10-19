@@ -10,6 +10,7 @@ public class SelfDistructor : MonoBehaviour
     void Start()
     {
         enemy = GetComponent<Enemy>();
+        enemy.OnAttack += enemy.ImmediateDamage;
         enemy.OnAttack += enemy.Kill;
     }
 }

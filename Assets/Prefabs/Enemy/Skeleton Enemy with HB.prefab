@@ -270,14 +270,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd350905d4da4d5489071f908bf029cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 5
+  hp: 10
   defaultSpeed: 2.1
   attackRange: 2
   firstAttackDelay: 0.95
   secondAttackDelay: 1.5
   attackPower: 5
   moveType: 0
-  delay: 0.5
+  delay: 0.1
 --- !u!114 &5457857063492494224
 MonoBehaviour:
   m_ObjectHideFlags: 0

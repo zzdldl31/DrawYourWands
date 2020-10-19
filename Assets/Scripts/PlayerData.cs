@@ -7,11 +7,14 @@ public class PlayerData : MonoBehaviour
 {
     public static PlayerData inst;
 
-    public int hp;
+    public int maxHp;
+    private int hp;
     public int killCount;
 
     public event Action OnDied;
     public event Action<int> OnDamaged;
+
+    public event Action<int> OnHpUpdated;
 
     // Start is called before the first frame update
     void Awake()
@@ -19,11 +22,28 @@ public class PlayerData : MonoBehaviour
         inst = this;
     }
 
+    public void ResetForGame()
+    {
+        hp = maxHp;
+        killCount = 0;
+    }
+
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
-        OnDamaged?.Invoke(hp);
+        OnDamaged?.Invoke(dmg);
         if (hp <= 0)
             OnDied?.Invoke();
+    }
+
+    public void Restore(int value)
+    {
+        if (hp == maxHp)
+            return;
+
+        hp += value;
+        if (hp > maxHp)
+            hp = maxHp;
+        OnHpUpdated?.Invoke(hp);
     }
 }

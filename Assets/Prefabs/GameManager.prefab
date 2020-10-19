@@ -43,6 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 071c626eb0b3fdb4da0df38eb1ba0731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawner: {fileID: 0}
-  player: {fileID: 0}
+  waveManager: {fileID: 0}
+  dayNight: {fileID: 0}
+  playerData: {fileID: 0}
+  playerUI: {fileID: 0}
+  gameStartButton: {fileID: 0}
   gameState: 0
+  hapticAction:
+    actionPath: /actions/default/out/Haptic
+    needsReinit: 0

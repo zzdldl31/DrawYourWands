@@ -11,15 +11,14 @@ public class FloatingCanvas : MonoBehaviour
 
     public int killCount = 0;
 
-    private void Awake()
-    {
-        playerData = PlayerData.inst;
-    }
-
     private void Start()
     {
+        healthbar.maximumHealth = playerData.maxHp;
+        healthbar.health = playerData.maxHp;
         Enemy.OnAnyEnemyDie += () => AddKillCount();
+
         PlayerData.inst.OnDamaged += (dmg) => OnPlayerDamaged(dmg);
+        PlayerData.inst.OnHpUpdated += (value) => healthbar.SetHealth(value);
         PlayerData.inst.OnDied += () => OnPlayerDied();
     }
 
@@ -33,7 +32,7 @@ public class FloatingCanvas : MonoBehaviour
     private void OnPlayerDamaged(int dmg)
     {
         healthbar.TakeDamage(dmg);
-        GameManager.Instance.Pulse(0.01f, 150, 75);
+        GameManager.Instance.Pulse(0.01f, 150, 15*dmg);
     }
 
     private void OnPlayerDied()
@@ -47,8 +46,22 @@ public class FloatingCanvas : MonoBehaviour
         scoreboard.text = $"Kills: {++playerData.killCount}";
     }
 
+    public void PrepareForGameStart()
+    {
+        healthbar.GainHealth(healthbar.maximumHealth);
+        SetTextCenter("");
+        MoveScoreBoard(428);
+        healthbar.gameObject.SetActive(true);
+    }
 
-    public void SetTextCenter(string str)
+    public void SetForGameOver()
+    {
+        SetTextCenter("Game Over");
+        MoveScoreBoard(-150);
+        healthbar.gameObject.SetActive(false);
+    }
+
+    private void SetTextCenter(string str)
     {
         textCenter.text = str;
     }

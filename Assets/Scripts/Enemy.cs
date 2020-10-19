@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     private int hp;
+    bool IsDead => hp <= 0;
     
     public int Hp
     {
@@ -84,6 +85,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void ImmediateDamage()
+    {
+        PlayerData.inst.TakeDamage(attackPower);
+    }
+
     public MoveType moveType;
 
     private void MoveToPlayer()
@@ -113,7 +119,7 @@ public class Enemy : MonoBehaviour
 
     public void Damage(PointerEventArgs e)
     {
-        if(delayTimer <= 0)
+        if(!IsDead && delayTimer <= 0)
         {
             Hp--;
             delayTimer = delay;

@@ -81,10 +81,6 @@ public class Bacon_LaserPointer : MonoBehaviour
         PointerIn?.Invoke(this, e);
     }
 
-    /// <summary>
-    /// bacon8282 개발
-    /// </summary>
-    /// <param name="e"></param>
     public virtual void OnPointerKeep(PointerEventArgs e) => PointerKeep?.Invoke(this, e);
 
     public virtual void OnPointerClick(PointerEventArgs e)

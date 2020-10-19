@@ -2,7 +2,7 @@
 
 public class LaserHitReceiver : MonoBehaviour
 {
-#if true
+#if false
     private void Awake()
     {
         OnLaserKeep += (s, e) => print("성공");

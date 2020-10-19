@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da8dfab00cf9ed44184a959a79f7e6d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHp: 100
+  killCount: 0
 --- !u!114 &1443667326999192809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,7 +95,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2014920, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: far clip plane
-      value: 641.1
+      value: 750
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}

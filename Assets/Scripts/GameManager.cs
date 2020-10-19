@@ -8,7 +8,7 @@ namespace DYW
     public class GameManager : MonoBehaviour
     {
         public WaveManager waveManager;
-        public WaveSpawner spawner;
+        public DayNightController dayNight;
 
         public PlayerData playerData;
         public FloatingCanvas playerUI;
@@ -64,23 +64,19 @@ namespace DYW
 
         void GameStart()
         {
+            playerData.ResetForGame();
             gameStartButton.SetActive(false);
-            spawner.ResetWave();
-            playerUI.healthbar.GainHealth(playerUI.healthbar.maximumHealth);
-            playerUI.SetTextCenter("");
-            playerUI.MoveScoreBoard(428);
-            playerData.killCount = 0;
-            playerUI.healthbar.gameObject.SetActive(true);
+            playerUI.PrepareForGameStart();
+            waveManager.StartWave();
+            dayNight.Activate();
         }
 
         void GameOver()
         {
             gameStartButton.SetActive(true);
-            waveManager.CleanUp();
-            playerUI.SetTextCenter("Game Over");
-            playerUI.MoveScoreBoard(-150);
-            playerUI.healthbar.gameObject.SetActive(false);
-
+            waveManager.EndWave();
+            playerUI.SetForGameOver();
+            dayNight.ResetTime();
             Pulse(1f, 150, 100);
         }
 

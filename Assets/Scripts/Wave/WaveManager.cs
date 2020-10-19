@@ -5,6 +5,7 @@ using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
     public GameObject[] enemyObj;
+    public GameObject heart;
     public int spawnDist;
     private int mobNum;
 
@@ -19,25 +20,67 @@ public class WaveManager : MonoBehaviour
         get
         {
             var waves = new List<IWaveNode>();
-            waves.Add(new RandomMountainTopMobWaveNode(30, 1, 1));
-            waves.Add(new RandomMobWaveNode(2, 5, 0));
+            waves.Add(new RandomMobWaveNode(3, 5, 0));
+            waves.Add(new RandomMountainTopMobWaveNode(20, 1, 1));
+            waves.Add(new SpawnHeart());
+
+            waves.Add(new RandomMountainTopMobWaveNode(0, 1, 1));
+            waves.Add(new RandomMobWaveNode(3, 5, 0));
+            waves.Add(new RandomMobWaveNode(2, 1, 2));
             waves.Add(new RandomMobWaveNode(1, 5, 0));
-            //waves.Add();
+            waves.Add(new RandomMountainTopMobWaveNode(25, 1, 1));
+            waves.Add(new SpawnHeart());
+
+            waves.Add(new RandomMobWaveNode(3, 10, 0));
+            waves.Add(new RandomMountainTopMobWaveNode(3, 3, 1));
+            waves.Add(new RandomMobWaveNode(2.5f, 6, 0));
+            waves.Add(new RandomMobWaveNode(0, 4, 2));
+            waves.Add(new RandomMobWaveNode(20, 1, 0));
+            waves.Add(new SpawnHeart());
+
+            waves.Add(new RandomMountainTopMobWaveNode(0, 3, 1));
+            waves.Add(new RandomMobWaveNode(3, 2, 2));
+            waves.Add(new RandomMountainTopMobWaveNode(2, 3, 1));
+            waves.Add(new RandomMobWaveNode(0, 1, 0));
+            waves.Add(new RandomMobWaveNode(1, 6, 2));
+            waves.Add(new RandomMobWaveNode(10, 1, 0));
+            waves.Add(new SpawnHeart());
 
             return waves;
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    List<IWaveNode> infWaves
     {
-        StartCoroutine(DoWave());
+        get
+        {
+            var waves = new List<IWaveNode>();
+
+            waves.Add(new RandomMobWaveNode(3, 5, 0));
+            waves.Add(new RandomMobWaveNode(0, 3, 2));
+            waves.Add(new RandomMountainTopMobWaveNode(0, 1, 1));
+            waves.Add(new RandomMobWaveNode(2, 5, 0));
+            waves.Add(new RandomMobWaveNode(0, 3, 2));
+            waves.Add(new RandomMountainTopMobWaveNode(0, 1, 1));
+            waves.Add(new RandomMobWaveNode(1, 5, 0));
+            waves.Add(new RandomMobWaveNode(0, 3, 2));
+            waves.Add(new RandomMountainTopMobWaveNode(10, 1, 1));
+            waves.Add(new SpawnHeart());
+
+            return waves;
+        }
+    }
+
+    Coroutine waveCoroutine;
+    public void StartWave()
+    {
+        waveCoroutine = StartCoroutine(DoWave());
     }
 
     public void SpawnMob(int enemyCode)
     {
         float angle = Random.Range(0, 2 * Mathf.PI);
-        Instantiate(enemyObj[enemyCode],
+        Instantiate(enemyCode<0 ? heart : enemyObj[enemyCode],
             spawnDist * new Vector3(-Mathf.Sin(angle), 0, -Mathf.Cos(angle)),
             Quaternion.Euler(new Vector3(0, angle * 180 / Mathf.PI, 0)), this.transform);
 
@@ -53,12 +96,15 @@ public class WaveManager : MonoBehaviour
         mobNum += 1;
     }
 
-    public void CleanUp()
+    public void EndWave()
     {
         foreach (Transform obj in transform)
         {
             Destroy(obj.gameObject);
         }
+
+        if(waveCoroutine != null)
+            StopCoroutine(waveCoroutine);
     }
 
     int cycle = 1;
@@ -67,6 +113,14 @@ public class WaveManager : MonoBehaviour
         foreach (var wave in waves)
         {
             yield return wave.Execute(1);
+        }
+
+        while (true)
+        {
+            foreach(var wave in infWaves)
+            {
+                yield return wave.Execute(1);
+            }
         }
     }
 }
@@ -100,6 +154,15 @@ public class RandomMobWaveNode : IWaveNode
     }
 }
 
+public class SpawnHeart : IWaveNode
+{
+    public IEnumerator Execute(int cycle)
+    {
+        WaveManager.inst.SpawnMob(-1);
+        yield return null;
+    }
+}
+
 public class RandomMountainTopMobWaveNode : IWaveNode
 {
     float spawnTerm;
@@ -124,4 +187,3 @@ public class RandomMountainTopMobWaveNode : IWaveNode
         }
     }
 }
-

@@ -70,14 +70,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd350905d4da4d5489071f908bf029cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 5
+  hp: 3
   defaultSpeed: 6
   attackRange: 2
-  firstAttackDelay: 0
-  secondAttackDelay: 0
-  attackPower: 0
+  firstAttackDelay: 1
+  secondAttackDelay: 1
+  attackPower: 2
   moveType: 0
-  delay: 0.5
+  delay: 0.1
 --- !u!114 &6413703705802796043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,13 +128,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 0
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.26, z: 0}
 --- !u!114 &7901044967217829965
 MonoBehaviour:
   m_ObjectHideFlags: 0

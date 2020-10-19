@@ -78,6 +78,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Game Over
+--- !u!114 &109572070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2194445675117114645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae8879af4e4be84593314db9efc0579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHandClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3328549040750827089
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,22 +290,8 @@ MonoBehaviour:
   healthbar: {fileID: 3433757703872391918}
   scoreboard: {fileID: 3328549040750827103}
   textCenter: {fileID: 1624473566}
+  playerData: {fileID: 0}
   killCount: 0
---- !u!114 &109572070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2194445675117114645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ae8879af4e4be84593314db9efc0579, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onHandClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &3328549041287966760
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -504,6 +505,67 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3328549040898282865}
     m_Modifications:
+    - target: {fileID: 3478288544382403622, guid: 6d54fc53aa52db14487046b2cf983ad7,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478288544423017125, guid: 6d54fc53aa52db14487046b2cf983ad7,
+        type: 3}
+      propertyPath: m_Text
+      value: Start Game
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478288545681796961, guid: 6d54fc53aa52db14487046b2cf983ad7,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5697c26ee2ef0c848996640f6a3d3432,
+        type: 3}
+    - target: {fileID: 3478288545681796966, guid: 6d54fc53aa52db14487046b2cf983ad7,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.r
+      value: 0.27843133
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478288545681796966, guid: 6d54fc53aa52db14487046b2cf983ad7,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.g
+      value: 0.82301277
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478288545681796966, guid: 6d54fc53aa52db14487046b2cf983ad7,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.b
+      value: 0.972549
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478288545681796966, guid: 6d54fc53aa52db14487046b2cf983ad7,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 0.4295123
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478288545681796966, guid: 6d54fc53aa52db14487046b2cf983ad7,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.6552647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478288545681796966, guid: 6d54fc53aa52db14487046b2cf983ad7,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0.7169812
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478288545681796966, guid: 6d54fc53aa52db14487046b2cf983ad7,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.43137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478288545681796966, guid: 6d54fc53aa52db14487046b2cf983ad7,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.65882355
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478288545681796966, guid: 6d54fc53aa52db14487046b2cf983ad7,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.7176471
+      objectReference: {fileID: 0}
     - target: {fileID: 3478288545681796970, guid: 6d54fc53aa52db14487046b2cf983ad7,
         type: 3}
       propertyPath: m_LocalPosition.x
